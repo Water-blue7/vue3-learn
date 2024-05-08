@@ -3,37 +3,31 @@
         <h2>汽车信息：一辆{{ car.brand }}车，价值{{ car.price }}万</h2>
         <button @click="changePrice">修改汽车价格</button>
         <br>
-        <h2>游戏列表</h2>
-        <ul>
-            <li v-for="game in games" :key="game.id">{{ game.name }}</li>
-        </ul>
-        <button @click="changeFirstName">修改第一个游戏名称</button>
+        <h2>当前数值为：{{ sum }}</h2>
+        <button @click="changeSum">点我数值+1</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
 // 用ref实现响应式对象类型数据，底层用的是reactive
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 
 // 数据
-let car = ref({
+let car = reactive({
     brand: '奔驰',
     price: 100
 })
-let games = ref([
-    { id: 'askdlgha01', name: '王者荣耀' },
-    { id: 'askdlgha02', name: '英雄联盟' },
-    { id: 'askdlgha03', name: 'PUBG' }
-])
+let sum = ref(0)
 
 // 方法
 function changePrice() {
-    car.value.price += 10
+    car.price += 10
 }
-function changeFirstName() {
-    games.value[0].name = '王者农药'
-    console.log(games.value[0].name);
+function changeSum() {
+    // ref取值需要.value
+    sum.value += 1
 }
+
 // 不用写return了
 </script>
 
