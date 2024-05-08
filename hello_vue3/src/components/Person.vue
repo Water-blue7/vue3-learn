@@ -1,40 +1,21 @@
 <template>
     <div class="person">
-        <h2>水温达到60℃或水位达到80cm时向服务器发送请求</h2>
-        <h2>当前水温：{{ temp }}℃</h2>
-        <h2>当前水位：{{ height }}cm</h2>
-        <button @click="changeTemp">点我水温+10℃</button>
-        <button @click="changeHeight">点我水位+10cm</button>
+        <h1>中国</h1>
+        <h2 ref="title2">北京</h2>
+        <h3>朝阳区</h3>
+        <button @click="showLog">点我输出h2这个元素</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-import { ref, watch, watchEffect } from 'vue';
+import { ref } from 'vue'
 
-let temp = ref(10)
-let height = ref(0)
-function changeTemp() {
-    temp.value += 10
+// 为了防止其他页面也有名为title2的id
+let title2 = ref()
+
+function showLog() {
+    console.log(title2.value);
 }
-function changeHeight() {
-    height.value += 10
-}
-
-// 监视
-// watch([temp, height], (value) => {
-//     let [newTemp, newHeight] = value
-//     console.log(newTemp, newHeight);
-//     if (newTemp >= 60 || newHeight >= 80) {
-//         console.log('向服务器发起一个请求');
-//     }
-// })
-
-// watchEffect：不用告诉它要监视什么属性
-watchEffect(() => {
-    if (temp.value >= 60 || height.value >= 80) {
-        console.log('向服务器发起一个请求');
-    }
-})
 </script>
 
 <style scoped>
