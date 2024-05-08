@@ -1,21 +1,22 @@
 <template>
     <div class="person">
-        <h1>中国</h1>
-        <h2 ref="title2">北京</h2>
-        <h3>朝阳区</h3>
-        <button @click="showLog">点我输出h2这个元素</button>
+        ???
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-import { ref } from 'vue'
+import { type PersonInter, type Persons } from '@/types'
 
-// 为了防止其他页面也有名为title2的id
-let title2 = ref()
+// PersonInter：规定了对象的属性类型
+let person: PersonInter = { id: 'asdgasgbioadg01', name: 'zhang-san', age: 18 }
 
-function showLog() {
-    console.log(title2.value);
-}
+let personList: Persons = [
+    { id: 'asdgasgbioadg01', name: 'zhang-san', age: 18 },
+    { id: 'asdgasgbioadg02', name: 'li-si', age: 19 },
+    { id: 'asdgasgbioadg03', name: 'wang-wu', age: 28 }
+]
+console.log(personList);
+
 </script>
 
 <style scoped>
