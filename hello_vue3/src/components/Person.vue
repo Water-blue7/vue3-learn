@@ -12,15 +12,15 @@
 </template>
 
 <script lang="ts" setup name="Person">
-// 响应式对象类型数据
-import { reactive } from 'vue';
+// 用ref实现响应式对象类型数据，底层用的是reactive
+import { ref } from 'vue';
 
 // 数据
-let car = reactive({
+let car = ref({
     brand: '奔驰',
     price: 100
 })
-let games = reactive([
+let games = ref([
     { id: 'askdlgha01', name: '王者荣耀' },
     { id: 'askdlgha02', name: '英雄联盟' },
     { id: 'askdlgha03', name: 'PUBG' }
@@ -28,12 +28,11 @@ let games = reactive([
 
 // 方法
 function changePrice() {
-    car.price += 10
+    car.value.price += 10
 }
 function changeFirstName() {
-    games[0].name = '王者农药'
-    console.log(games[0].name);
-
+    games.value[0].name = '王者农药'
+    console.log(games.value[0].name);
 }
 // 不用写return了
 </script>
