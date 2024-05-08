@@ -2,9 +2,8 @@
     <div class="person">
         <h2>汽车信息：一辆{{ car.brand }}车，价值{{ car.price }}万</h2>
         <button @click="changePrice">修改汽车价格</button>
+        <button @click="changeCar">修改汽车</button>
         <br>
-        <h2>当前数值为：{{ sum }}</h2>
-        <button @click="changeSum">点我数值+1</button>
     </div>
 </template>
 
@@ -17,17 +16,16 @@ let car = reactive({
     brand: '奔驰',
     price: 100
 })
-let sum = ref(0)
 
 // 方法
 function changePrice() {
     car.price += 10
 }
-function changeSum() {
-    // ref取值需要.value
-    sum.value += 1
+function changeCar() {
+    // 用赋值的方式，页面无任何变化
+    // 使用Object的assign方法
+    Object.assign(car, { brand: '宝马', price: 200 })
 }
-
 // 不用写return了
 </script>
 
