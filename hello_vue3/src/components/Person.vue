@@ -1,41 +1,46 @@
 <template>
     <div class="person">
-        <h2>姓名：{{ name }}</h2>
-        <h2>年龄：{{ age }}</h2>
-        <button @click="changeName">修改名字</button>
-        <button @click="changeAge">修改年龄</button>
-        <button @click="showTel">查看联系方式</button>
+        <h2>汽车信息：一辆{{ car.brand }}车，价值{{ car.price }}万</h2>
+        <button @click="changePrice">修改汽车价格</button>
+        <br>
+        <h2>游戏列表</h2>
+        <ul>
+            <li v-for="game in games" :key="game.id">{{ game.name }}</li>
+        </ul>
+        <button @click="changeFirstName">修改第一个游戏名称</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-// 响应式
-import { ref } from 'vue'
+// 响应式对象类型数据
+import { reactive } from 'vue';
 
 // 数据
-let name = ref('张三')
-let age = ref(19)
-let tel = '13333333'
+let car = reactive({
+    brand: '奔驰',
+    price: 100
+})
+let games = reactive([
+    { id: 'askdlgha01', name: '王者荣耀' },
+    { id: 'askdlgha02', name: '英雄联盟' },
+    { id: 'askdlgha03', name: 'PUBG' }
+])
 
 // 方法
-function changeName() {
-    console.log('changeName')
-    name.value = 'zhang-san' // 确实修改了name的值，但不是响应式的，页面没有变化
-    console.log(name.value)
+function changePrice() {
+    car.price += 10
 }
-function changeAge() {
-    age.value += 1
-}
-function showTel() {
-    alert(tel)
-}
+function changeFirstName() {
+    games[0].name = '王者农药'
+    console.log(games[0].name);
 
+}
 // 不用写return了
 </script>
 
 <style scoped>
 .person {
-    background-color: #7a0505;
+    background-color: #d34343;
     box-shadow: 0 0 10px;
     border-radius: 10px;
     padding: 20px;
@@ -43,5 +48,9 @@ function showTel() {
 
 button {
     margin: 0 5px;
+}
+
+ul {
+    font-size: 20px;
 }
 </style>
