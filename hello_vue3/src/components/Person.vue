@@ -1,40 +1,20 @@
 <template>
     <div class="person">
-        <h2>当前sum：{{ sum }}</h2>
+        <h2>当前sum：{{ sum }}--->放大十倍后{{ bigSum }}</h2>
         <button @click="add">点我sum+1</button>
-        <br>
+        <hr>
         <img v-for="(dog, index) in dogList" :src="dog" :key="index"><br>
         <button @click="getDog">再来一只</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-import { ref, reactive } from 'vue'
-import axios from 'axios'
+import useDog from '@/hooks/useDog';
+import useSum from '@/hooks/useSum';
 
+const { dogList, getDog } = useDog()
+const { sum, add, bigSum } = useSum()
 
-let sum = ref(0)
-let dogList = reactive([
-    'https://images.dog.ceo/breeds/pembroke/n02113023_6869.jpg',
-    'https://images.dog.ceo/breeds/pembroke/n02113023_3601.jpg',
-    'https://images.dog.ceo/breeds/pembroke/n02113023_4312.jpg'
-])
-
-
-function add() {
-    sum.value += 1
-}
-
-// axios：Ajax
-async function getDog() {
-    try {
-        let result = await axios.get('https://dog.ceo/api/breed/pembroke/images/random')
-        // console.log(result.data.message);
-        dogList.push(result.data.message)
-    } catch (error) {
-        alert(error);
-    }
-}
 
 </script>
 
