@@ -1,45 +1,40 @@
 <template>
     <div class="person">
         <h2>当前sum：{{ sum }}</h2>
-        <button @click="add">sum+1</button>
+        <button @click="add">点我sum+1</button>
+        <br>
+        <img v-for="(dog, index) in dogList" :src="dog" :key="index"><br>
+        <button @click="getDog">再来一只</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue'
+import { ref, reactive } from 'vue'
+import axios from 'axios'
+
 
 let sum = ref(0)
+let dogList = reactive([
+    'https://images.dog.ceo/breeds/pembroke/n02113023_6869.jpg',
+    'https://images.dog.ceo/breeds/pembroke/n02113023_3601.jpg',
+    'https://images.dog.ceo/breeds/pembroke/n02113023_4312.jpg'
+])
+
 
 function add() {
     sum.value += 1
 }
 
-// 创建
-console.log('创建');
-
-// 挂载
-onBeforeMount(() => {
-    console.log('挂载前');
-})
-onMounted(() => {
-    console.log('子---挂载完毕');
-})
-// 更新
-onBeforeUpdate(() => {
-    console.log('更新前');
-
-})
-onUpdated(() => {
-    console.log('更新完毕');
-})
-// 卸载
-onBeforeUnmount(() => {
-    console.log('卸载前');
-})
-onUnmounted(() => {
-    console.log('卸载完毕');
-})
-
+// axios：Ajax
+async function getDog() {
+    try {
+        let result = await axios.get('https://dog.ceo/api/breed/pembroke/images/random')
+        // console.log(result.data.message);
+        dogList.push(result.data.message)
+    } catch (error) {
+        alert(error);
+    }
+}
 
 </script>
 
@@ -57,5 +52,10 @@ button {
 
 ul {
     font-size: 20px;
+}
+
+img {
+    height: 100px;
+    margin-right: 10px;
 }
 </style>
