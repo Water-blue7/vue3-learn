@@ -1,23 +1,19 @@
 <template>
-  <Person a="哈哈" :list="personList" ref="test" />
+  <Person v-if="isShow" />
 </template>
 
 <script lang="ts" setup name="App">
 import Person from "./components/Person.vue";
-import { reactive, ref } from 'vue'
-import { type Persons } from '@/types'
+import { ref, onMounted } from "vue";
 
-// 这里拿到的是从Person中传过来的实例对象
-let test = ref()
-// console.log(test);
+let isShow = ref(true)
 
+// 子在父之前挂载完毕
+// App组件永远最后挂载，因为main.js最后一行才是挂载App
+onMounted(() => {
+  console.log('父---挂载完毕');
+})
 
-// 泛型reactive<Persons>([])
-let personList = reactive<Persons>([
-  { id: 'asdgasgbioadg01', name: 'zhang-san', age: 18 },
-  { id: 'asdgasgbioadg02', name: 'li-si', age: 19, tel: '188888' },
-  { id: 'asdgasgbioadg03', name: 'wang-wu', age: 28, tel: '1333333' }
-])
 </script>
 
 

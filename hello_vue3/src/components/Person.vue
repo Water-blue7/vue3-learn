@@ -1,43 +1,45 @@
 <template>
     <div class="person">
-        <ul>
-            <li v-for="item in list" :key="item.id">
-                {{ item.name }} --> {{ item.age }}
-            </li>
-        </ul>
+        <h2>当前sum：{{ sum }}</h2>
+        <button @click="add">sum+1</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-import { defineProps, ref, defineExpose, withDefaults } from 'vue'
-import { type Persons } from '@/types'
+import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue'
 
+let sum = ref(0)
 
-let a = ref(0)
-let b = ref(1)
-let c = ref(2)
-// 选择暴露哪些数据
-defineExpose({ a, b, c })
+function add() {
+    sum.value += 1
+}
 
-// 接受App传过来的数据，有返回值
-// let x = defineProps(['a', 'list'])
+// 创建
+console.log('创建');
 
-// 接收list+限制类型
-// defineProps<{ list: Persons }>()
+// 挂载
+onBeforeMount(() => {
+    console.log('挂载前');
+})
+onMounted(() => {
+    console.log('子---挂载完毕');
+})
+// 更新
+onBeforeUpdate(() => {
+    console.log('更新前');
 
-// 接收list+限制类型+限制必要性
-// defineProps<{ list?: Persons }>()
-
-// 最终形态
-// 接收list+限制类型+限制必要性+默认值
-withDefaults(defineProps<{ list?: Persons }>(), {
-    // 不能直接写，需要用函数返回一个结果
-    // 设置默认值
-    list: () => [{ id: 'id01', name: 'name01', age: 20 }]
+})
+onUpdated(() => {
+    console.log('更新完毕');
+})
+// 卸载
+onBeforeUnmount(() => {
+    console.log('卸载前');
+})
+onUnmounted(() => {
+    console.log('卸载完毕');
 })
 
-
-// console.log(x.list);
 
 </script>
 
