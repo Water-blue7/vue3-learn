@@ -30,7 +30,7 @@ async function getLoveTalk() {
 
 <style scoped>
 .talk {
-  background-color: rgb(228, 144, 17);
+  background-color: orange;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px;
