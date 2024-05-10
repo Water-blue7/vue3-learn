@@ -24,9 +24,25 @@ const router = createRouter({
       children: [
         {
           name: 'xiang',
-          // :是占位，?是可选参数
-          path: 'detail/:id/:title/:content?',
-          component: Detail
+          // :是占位，?是可选参数  query不用占位，params需要占位
+          path: 'detail',
+          // 下一行相当于<Detail/>
+          component: Detail,
+          // props: true 相当于 <Detail id='' title='' content='' />
+          // 第一种写法：将路由收到的所有 params 参数作为props传给路由组件
+          // props: true
+
+          // 第二种写法（函数写法）：可以自己决定将什么作为props给路由组件
+          props(route) {
+            return route.query
+          }
+
+          // 第三种写法（对象写法）：可以自己决定将什么作为props给路由组件
+          // props: {
+          //   id: 'id',
+          //   title: 'hello',
+          //   content: 'content'
+          // }
         }
       ]
     },

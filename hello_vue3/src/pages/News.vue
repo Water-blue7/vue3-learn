@@ -12,7 +12,7 @@
           // params：不能用path，只能用name
           // path: '/news/detail',
           name: 'xiang',
-          params: {
+          query: {
             id: news.id,
             title: news.title,
             // index.ts中 :content? 说明content不是必须的参数
