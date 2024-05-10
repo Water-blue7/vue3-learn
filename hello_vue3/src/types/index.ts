@@ -2,7 +2,7 @@ export interface PersonInter {
     id: string,
     name: string,
     age: number,
-    tel?:string //?可有可无的参数
+    tel?: string //?可有可无的参数
 }
 
 // 使用泛型

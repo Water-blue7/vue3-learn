@@ -3,9 +3,7 @@
     <Header />
     <!-- 导航区 -->
     <div class="navigate">
-      <!-- 1、字符串写法 -->
       <RouterLink to="/home" active-class="active">首页</RouterLink>
-      <!-- 2、下面两种都是对象写法，name跳转，path跳转 -->
       <RouterLink :to="{ name: 'xinwen' }" active-class="active">新闻</RouterLink>
       <RouterLink :to="{ path: '/about' }" active-class="active">关于</RouterLink>
     </div>
@@ -17,12 +15,13 @@
 </template>
 
 <script lang="ts" setup name="App">
-import { RouterView, RouterLink } from 'vue-router';
-import Header from './components/Header.vue';
+import { RouterView, RouterLink } from 'vue-router'
+import Header from './components/Header.vue'
+
 </script>
 
-
-<style scoped>
+<style>
+/* App */
 .navigate {
   display: flex;
   justify-content: space-around;
@@ -44,7 +43,7 @@ import Header from './components/Header.vue';
 }
 
 .navigate a.active {
-  border-color: #64967E;
+  background-color: #64967E;
   color: #ffc268;
   font-weight: 900;
   text-shadow: 0 0 1px black;
