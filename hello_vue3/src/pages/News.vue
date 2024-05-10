@@ -2,12 +2,8 @@
   <div class="news">
     <!-- 导航区 -->
     <ul>
-      <!-- 第一种写法 -->
-      <!-- <li v-for="news in newsList" :key="news.id">
-        <RouterLink :to="`/news/detail/${news.id}/${news.title}/${news.content}`">{{ news.title }}</RouterLink>
-      </li> -->
-      <!-- 第二种写法 -->
       <li v-for="news in newsList" :key="news.id">
+        <button @click="showNewsDetail(news)">显示新闻</button>
         <RouterLink :to="{
           // params：不能用path，只能用name
           // path: '/news/detail',
@@ -33,6 +29,8 @@
 <script setup lang="ts" name="News">
 import { reactive } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router';
+import { NewsInter } from '@/types';
 
 const newsList = reactive([
   { id: 'asfdtrfay01', title: '很好的抗癌食物', content: '西蓝花' },
@@ -41,6 +39,26 @@ const newsList = reactive([
   { id: 'asfdtrfay04', title: '好消息！好消息！', content: '快过年了' }
 ])
 
+const router = useRouter()
+
+/**
+ * 编程式路由导航
+ * 使用场景：1、只有符合某些条件才跳转。2、鼠标滑过一个东西就跳转，RouterLink需要点击。
+ * @param news 
+ */
+function showNewsDetail(news: NewsInter) {
+  // to咋写这里的push就咋写，可以直接写字符串，也可以写对象
+  // 这里也可以用replace
+  router.push({
+    name: 'xiang',
+    query: {
+      id: news.id,
+      title: news.title,
+      // index.ts中 :content? 说明content不是必须的参数
+      content: news.content
+    }
+  })
+}
 </script>
 
 <style scoped>
