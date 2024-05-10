@@ -1,8 +1,8 @@
 <template>
   <ul class="news-list">
-    <li>编号：{{ query.id }}</li>
-    <li>标题：{{ query.title }}</li>
-    <li>内容：{{ query.content }}</li>
+    <li>编号：{{ params.id }}</li>
+    <li>标题：{{ params.title }}</li>
+    <li>内容：{{ params.content }}</li>
   </ul>
 </template>
 
@@ -10,10 +10,10 @@
 import { useRoute } from 'vue-router';
 import { toRefs } from 'vue';
 
-let route = useRoute()
-// console.log(route);{{ route.query.id }}
-// 从一个响应式对象身上直接解构属性，属性会丢失响应式
-const { query } = toRefs(route)
+const route = useRoute()
+// console.log(route);
+// 解构赋值
+const { params } = toRefs(route)
 
 </script>
 

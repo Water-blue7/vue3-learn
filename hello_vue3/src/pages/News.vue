@@ -2,19 +2,25 @@
   <div class="news">
     <!-- 导航区 -->
     <ul>
+      <!-- 第一种写法 -->
+      <!-- <li v-for="news in newsList" :key="news.id">
+        <RouterLink :to="`/news/detail/${news.id}/${news.title}/${news.content}`">{{ news.title }}</RouterLink>
+      </li> -->
+      <!-- 第二种写法 -->
       <li v-for="news in newsList" :key="news.id">
-        <!-- 第一种写法 -->
-        <!-- <RouterLink :to="`/news/detail?id=${news.id}&title=${news.title}&content=${news.content}`">{{ news.title }}</RouterLink> -->
-        <!-- 第二种写法 -->
         <RouterLink :to="{
+          // params：不能用path，只能用name
           // path: '/news/detail',
           name: 'xiang',
-          query: {
+          params: {
             id: news.id,
             title: news.title,
+            // index.ts中 :content? 说明content不是必须的参数
             content: news.content
           }
-        }">{{ news.title }}</RouterLink>
+        }">
+          {{ news.title }}
+        </RouterLink>
       </li>
     </ul>
     <!-- 展示区 -->
