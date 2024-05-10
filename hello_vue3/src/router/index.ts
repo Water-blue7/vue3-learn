@@ -16,14 +16,17 @@ const router = createRouter({
     routes: [
         // 一个个的路由规则
         {
+            name: 'zhuye',
             path: '/home',
             component: Home
         },
         {
+            name: 'xinwen',
             path: '/news',
             component: News
         },
         {
+            name: 'guanyu',
             path: '/about',
             component: About
         }

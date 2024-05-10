@@ -3,8 +3,10 @@
     <Header />
     <!-- 导航区 -->
     <div class="navigate">
+      <!-- 1、字符串写法 -->
       <RouterLink to="/home" active-class="active">首页</RouterLink>
-      <RouterLink :to="{ path: '/news' }" active-class="active">新闻</RouterLink>
+      <!-- 2、下面两种都是对象写法，name跳转，path跳转 -->
+      <RouterLink :to="{ name: 'xinwen' }" active-class="active">新闻</RouterLink>
       <RouterLink :to="{ path: '/about' }" active-class="active">关于</RouterLink>
     </div>
     <!-- 展示区 -->
