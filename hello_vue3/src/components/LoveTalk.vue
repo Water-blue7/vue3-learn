@@ -2,16 +2,18 @@
   <div class="talk">
     <button @click="getLoveTalk">获取一句土味情话</button>
     <ul>
-      <li v-for="talk in loveTalkStore.talkList" :key="talk.id">{{ talk.title }}</li>
+      <li v-for="talk in talkList" :key="talk.id">{{ talk.title }}</li>
     </ul>
   </div>
 </template>
 
 <script setup lang='ts' name="LoveTalk">
 import { useLoveTlakStore } from '@/store/loveTalk';
+import { storeToRefs } from 'pinia';
 
 const loveTalkStore = useLoveTlakStore()
-
+// 使用storeToRefs：只对数据进行ref包裹
+const { talkList } = storeToRefs(loveTalkStore)
 
 // 方法
 async function getLoveTalk() {

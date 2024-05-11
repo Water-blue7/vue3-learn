@@ -1,6 +1,7 @@
 <template>
     <div class="count">
-        <h2>当前求和为：{{ countStore.sum }}</h2>
+        <h2>当前求和为：{{ sum }}</h2>
+        <h2>学校：{{ school }}，地址：{{ address }}</h2>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -12,40 +13,28 @@
 </template>
 
 <script setup lang='ts' name="Count">
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
+import { storeToRefs } from "pinia";
 // 引入useCountStore
 import { useCountStore } from "@/store/count";
 
 const countStore = useCountStore()
-// 以下两种方式都能从store中拿到数据
-// console.log('!!!!!!', countStore.sum);
-// console.log('!!!!!!', countStore.$state.sum);
+// 解构赋值、但是会失去响应式，所以使用storeToRefs
+const { sum, school, address } = storeToRefs(countStore)
+
+// 但是不推荐toRefs(countStore)，因为countStore中所有的数据都会被转成ref类型
+// console.log('==toRefs==',toRefs(countStore));
+// storeToRefs只会关注store中数据，不会对方法进行ref包裹
+// console.log('==storeToRefs==',storeToRefs(countStore));
 
 
 // 数据
 let n = ref(1) // 用户选择的数字
 
 function add() {
-    // 第一种修改方式
-    // countStore.sum += n.value
-
-    // 第二种修改方式，可以批量变更（如果有其它数据）
-    // countStore.$patch({
-    //     sum: countStore.sum += n.value
-    // })
-
-    // 还可以加上判断语句
     if (countStore.sum < 10) {
-        // 第一种
         countStore.sum += n.value
-        // 第二种
-        // countStore.$patch({
-        //     sum: countStore.sum += n.value
-        // })
     }
-
-
-    // 第三种，actions，有点麻烦，不用这个
 }
 
 function minus() {
