@@ -26,9 +26,32 @@ const countStore = useCountStore()
 let n = ref(1) // 用户选择的数字
 
 function add() {
+    // 第一种修改方式
+    // countStore.sum += n.value
+
+    // 第二种修改方式，可以批量变更（如果有其它数据）
+    // countStore.$patch({
+    //     sum: countStore.sum += n.value
+    // })
+
+    // 还可以加上判断语句
+    if (countStore.sum < 10) {
+        // 第一种
+        countStore.sum += n.value
+        // 第二种
+        // countStore.$patch({
+        //     sum: countStore.sum += n.value
+        // })
+    }
+
+
+    // 第三种，actions，有点麻烦，不用这个
 }
 
 function minus() {
+    countStore.$patch({
+        sum: countStore.sum -= n.value
+    })
 }
 </script>
 
