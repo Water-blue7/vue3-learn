@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Count />
+    <!-- <Count /> -->
     <br>
     <LoveTalk />
   </div>
