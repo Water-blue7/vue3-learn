@@ -1,7 +1,7 @@
 <template>
     <div class="count">
-        <h2>当前求和为：{{ sum }}</h2>
-        <h2>学校：{{ school }}，地址：{{ address }}</h2>
+        <h2>当前求和为：{{ sum }}，乘10={{ bigSum }}，除以10={{ smallSum }}</h2>
+        <h2>学校：{{ school }}，转成大写：{{ upperSchool }}，地址：{{ address }}</h2>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -20,7 +20,7 @@ import { useCountStore } from "@/store/count";
 
 const countStore = useCountStore()
 // 解构赋值、但是会失去响应式，所以使用storeToRefs
-const { sum, school, address } = storeToRefs(countStore)
+const { sum, school, address, bigSum, smallSum, upperSchool } = storeToRefs(countStore)
 
 // 但是不推荐toRefs(countStore)，因为countStore中所有的数据都会被转成ref类型
 // console.log('==toRefs==',toRefs(countStore));
