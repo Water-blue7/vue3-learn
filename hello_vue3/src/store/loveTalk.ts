@@ -14,14 +14,13 @@ export const useLoveTlakStore = defineStore('loveTalk', {
             this.talkList.unshift(obj)
         }
     },
-    // 正真存储数据的地方
+    // 真正存储数据的地方
     state() {
         return {
-            talkList: [
-                { id: 'ftrfasdf01', title: '今天你有点怪，哪里怪？怪好看的！' },
-                { id: 'ftrfasdf02', title: '草莓、蓝莓、蔓越莓，今天想我了没？' },
-                { id: 'ftrfasdf03', title: '心里给你留了一块地，我的死心塌地' }
-            ]
+            // JSON.parse：解析localStorage中的数据
+            // 从localStorage中key为talkList中取数据
+            // 防止用户第一次访问时localStorage中是空白的，null.unshift会报错，所以加一个空数组
+            talkList: JSON.parse(localStorage.getItem('talkList') as string) || []
         }
     }
 })
