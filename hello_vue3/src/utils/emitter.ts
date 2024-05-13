@@ -1,4 +1,4 @@
-// 引入mitt
+// 引入mitt 03_mitt用到了
 import mitt from 'mitt'
 
 // 调用mitt得到emitter，emitter能：绑定事件、触发事件
