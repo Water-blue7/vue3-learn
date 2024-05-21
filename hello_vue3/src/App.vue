@@ -1,36 +1,29 @@
 <template>
-	<div class="app">
-		<h2>立即修改</h2>
-		<h2>{{ msg1 }}</h2>
-		<input type="text" v-model="msg1">
+	<div class="outer">
+        <h2>我是app组件</h2>
+        <img src="http://www.atguigu.com/images/index_new/logo.png" alt="">
 		<hr>
-		<h2>延迟修改</h2>
-		<h2>{{ msg }}</h2>
-		<input type="text" v-model="msg">
+		<Modal/>
 	</div>
 </template>
 
 <script setup lang="ts" name="App">
-	import { ref } from 'vue';
-	import useMsgRef from './useMsgRef'
-
-	// 使用vue默认提供的ref定义响应式数据
-	// 响应式对象：数据变化页面就会跟着变
-	let msg1 = ref('hello')
-
-	// 使用useMsgRef来定义一个响应式数据并且有延迟效果
-	let { msg } = useMsgRef('useMsgRef', 1000)
+import Modal from './Modal.vue'
 
 </script>
 
 <style scoped>
-	.app {
+	.outer {
 		background-color: #ddd;
 		border-radius: 10px;
 		box-shadow: 0 0 10px;
-		padding: 10px;
+		padding: 5px;
+		width: 400px;
+		height: 400px;
+		/* 使用滤镜：会导致Modal组件本来是参考视口定位的变成参考app组件定位 */
+		filter: saturate(0%);
 	}
-	button {
-		margin:0 5px;
+	img {
+		width: 180px;
 	}
 </style>
