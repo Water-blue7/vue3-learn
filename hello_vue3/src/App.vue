@@ -1,59 +1,80 @@
 <template>
 	<div class="app">
-		<h2>求和为：{{ sum }}</h2>
-		<h2>名字为：{{ person.name }}</h2>
-		<h2>年龄为：{{ person.age }}</h2>
-		<h2>汽车为：{{ car }}</h2>
-		<button @click="changeSum">sum+1</button>
-		<button @click="changeName">修改名字</button>
-		<button @click="changeAge">修改年龄</button>
-		<button @click="changePerson">修改整个人</button>
-		<span>|</span>
-		<button @click="changeBrand">修改品牌</button>
-		<button @click="changeColor">修改颜色</button>
-		<button @click="changeEngine">修改发动机</button>
+		<h2>当前SUM1为{{ sum1 }}</h2>
+		<h2>当前SUM2(readonly)为{{ sum2 }}</h2>
+		<button @:click="changeSum1">SUM+1</button>
+		<button @:click="changeSum2">SUM2+1</button>
+		<hr>
+		<h2>car1:{{ car1 }}</h2>
+		<button @click="changeBrand1">修改品牌(car1)</button>
+		<button @click="changeColor1">修改颜色(car1)</button>
+		<button @click="changePrice1">修改价格(car1)</button>
+		<br>
+		<h2>car2(readonly):{{ car2 }}</h2>
+		<button @click="changeBrand2">修改品牌(car2)</button>
+		<button @click="changeColor2">修改颜色(car2)</button>
+		<button @click="changePrice2">修改价格(car2)</button>
+		<br>
+		<h2>car3(shallowReadonly):{{ car3 }}</h2>
+		<button @click="changeBrand3">修改品牌(car3)</button>
+		<button @click="changeColor3">修改颜色(car3)</button>
+		<button @click="changePrice3">修改价格(car3)</button>
 	</div>
 </template>
 
 <script setup lang="ts" name="App">
-	import { ref,reactive,shallowRef,shallowReactive } from 'vue'
+	import { ref, reactive, readonly, shallowReadonly } from 'vue';
 
-	let sum = shallowRef(0)
-	let person = shallowRef({
-		name:'张三',
-		age:18
-	})
-	let car = shallowReactive({
-		barnd:'奔驰',
+	let sum1 = ref(0)
+	// readonly：只读，不能修改，但是当sum被修改后sum2也会跟着被修改
+	let sum2 = readonly(sum1)
+	let car1 = reactive({
+		brand:'奔驰',
 		options:{
-			color:'红色',
-			engine:'V8'
+			color:'red',
+			price:100
 		}
 	})
+	let car2 = readonly(car1)
+	// 只有第一层才是read only，第二层的数据是可以修改的
+	let car3 = shallowReadonly(car1)
 
-	function changeSum (){
-		sum.value += 1
+	function changeSum1(){
+		sum1.value += 1
 	}
-	function changeName (){
-		person.value.name = '李四'
+	function changeSum2(){
+		sum2.value += 1
 	}
-	function changeAge (){
-		person.value.age += 1
+	
+	function changeBrand1(){
+		car1.brand = 'BYD'
 	}
-	function changePerson (){
-		person.value = {name:'tony',age:100}
+	function changeColor1(){
+		car1.options.color = 'blue'
 	}
-	/* ****************** */
-	function changeBrand(){
-		car.barnd = '宝马'
-	}
-	function changeColor(){
-		car.options.color = '紫色'
-	}
-	function changeEngine(){
-		car.options.engine = 'V12'
+	function changePrice1(){
+		car1.options.price = 30
 	}
 
+	function changeBrand2(){
+		car2.brand = 'BYD'
+	}
+	function changeColor2(){
+		car2.options.color = 'blue'
+	}
+	function changePrice2(){
+		car2.options.price = 30
+	}
+
+	function changeBrand3(){
+		car3.brand = 'BYD'
+	}
+	function changeColor3(){
+		car3.options.color = 'blue'
+	}
+	function changePrice3(){
+		car3.options.price = 30
+	}
 </script>
 
 <style scoped>
