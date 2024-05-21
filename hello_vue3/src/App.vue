@@ -1,50 +1,26 @@
 <template>
 	<div class="app">
-		<h2>姓名：{{ person.name }}</h2>
-		<h2>年龄：{{ person.age }}</h2>
-		<button @click="person.age += 1">修改年龄</button>
+		<h2>立即修改</h2>
+		<h2>{{ msg1 }}</h2>
+		<input type="text" v-model="msg1">
 		<hr>
-		<h2>rawPerson</h2>
-		<h2>姓名：{{ rawPerson.name }}</h2>
-		<h2>年龄：{{ rawPerson.age }}</h2>
-		<!-- 原始对象不是响应式 -->
-		<button @click="rawPerson.age += 1">修改年龄</button>
-		<hr>
-		<h2>markRaw</h2>
-		<h2>{{ car }}</h2>
-		<button @click="car.price += 1">增加价格</button>
+		<h2>延迟修改</h2>
+		<h2>{{ msg }}</h2>
+		<input type="text" v-model="msg">
 	</div>
 </template>
 
 <script setup lang="ts" name="App">
-	import { reactive, toRaw, markRaw} from 'vue';
-	import mockjs from 'mockjs'
+	import { ref } from 'vue';
+	import useMsgRef from './useMsgRef'
 
-	let person = reactive({
-		name:'tony',
-		age:20
-	})
+	// 使用vue默认提供的ref定义响应式数据
+	// 响应式对象：数据变化页面就会跟着变
+	let msg1 = ref('hello')
 
-	// 获取响应式对象的原始对象
-	let rawPerson = toRaw(person)
-	console.log('响应式数据',person);
-	console.log('原始数据',rawPerson);
+	// 使用useMsgRef来定义一个响应式数据并且有延迟效果
+	let { msg } = useMsgRef('useMsgRef', 1000)
 
-	// markRaw:将对象定义成原始对象，并且永远不能修改
-	let car = markRaw({
-		brand:'BYD',
-		price:20
-	})
-	// 不能顺利的将car转成响应式对象
-	let car2 = reactive(car)
-
-	console.log(car);
-	console.log(car2);
-
-	let mockjs1 = markRaw(mockjs)
-	console.log(mockjs1);
-	
-	
 </script>
 
 <style scoped>
