@@ -1,80 +1,50 @@
 <template>
 	<div class="app">
-		<h2>当前SUM1为{{ sum1 }}</h2>
-		<h2>当前SUM2(readonly)为{{ sum2 }}</h2>
-		<button @:click="changeSum1">SUM+1</button>
-		<button @:click="changeSum2">SUM2+1</button>
+		<h2>姓名：{{ person.name }}</h2>
+		<h2>年龄：{{ person.age }}</h2>
+		<button @click="person.age += 1">修改年龄</button>
 		<hr>
-		<h2>car1:{{ car1 }}</h2>
-		<button @click="changeBrand1">修改品牌(car1)</button>
-		<button @click="changeColor1">修改颜色(car1)</button>
-		<button @click="changePrice1">修改价格(car1)</button>
-		<br>
-		<h2>car2(readonly):{{ car2 }}</h2>
-		<button @click="changeBrand2">修改品牌(car2)</button>
-		<button @click="changeColor2">修改颜色(car2)</button>
-		<button @click="changePrice2">修改价格(car2)</button>
-		<br>
-		<h2>car3(shallowReadonly):{{ car3 }}</h2>
-		<button @click="changeBrand3">修改品牌(car3)</button>
-		<button @click="changeColor3">修改颜色(car3)</button>
-		<button @click="changePrice3">修改价格(car3)</button>
+		<h2>rawPerson</h2>
+		<h2>姓名：{{ rawPerson.name }}</h2>
+		<h2>年龄：{{ rawPerson.age }}</h2>
+		<!-- 原始对象不是响应式 -->
+		<button @click="rawPerson.age += 1">修改年龄</button>
+		<hr>
+		<h2>markRaw</h2>
+		<h2>{{ car }}</h2>
+		<button @click="car.price += 1">增加价格</button>
 	</div>
 </template>
 
 <script setup lang="ts" name="App">
-	import { ref, reactive, readonly, shallowReadonly } from 'vue';
+	import { reactive, toRaw, markRaw} from 'vue';
+	import mockjs from 'mockjs'
 
-	let sum1 = ref(0)
-	// readonly：只读，不能修改，但是当sum被修改后sum2也会跟着被修改
-	let sum2 = readonly(sum1)
-	let car1 = reactive({
-		brand:'奔驰',
-		options:{
-			color:'red',
-			price:100
-		}
+	let person = reactive({
+		name:'tony',
+		age:20
 	})
-	let car2 = readonly(car1)
-	// 只有第一层才是read only，第二层的数据是可以修改的
-	let car3 = shallowReadonly(car1)
 
-	function changeSum1(){
-		sum1.value += 1
-	}
-	function changeSum2(){
-		sum2.value += 1
-	}
+	// 获取响应式对象的原始对象
+	let rawPerson = toRaw(person)
+	console.log('响应式数据',person);
+	console.log('原始数据',rawPerson);
+
+	// markRaw:将对象定义成原始对象，并且永远不能修改
+	let car = markRaw({
+		brand:'BYD',
+		price:20
+	})
+	// 不能顺利的将car转成响应式对象
+	let car2 = reactive(car)
+
+	console.log(car);
+	console.log(car2);
+
+	let mockjs1 = markRaw(mockjs)
+	console.log(mockjs1);
 	
-	function changeBrand1(){
-		car1.brand = 'BYD'
-	}
-	function changeColor1(){
-		car1.options.color = 'blue'
-	}
-	function changePrice1(){
-		car1.options.price = 30
-	}
-
-	function changeBrand2(){
-		car2.brand = 'BYD'
-	}
-	function changeColor2(){
-		car2.options.color = 'blue'
-	}
-	function changePrice2(){
-		car2.options.price = 30
-	}
-
-	function changeBrand3(){
-		car3.brand = 'BYD'
-	}
-	function changeColor3(){
-		car3.options.color = 'blue'
-	}
-	function changePrice3(){
-		car3.options.price = 30
-	}
+	
 </script>
 
 <style scoped>
